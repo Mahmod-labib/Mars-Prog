@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:untitled6/ui/screens/home-page.dart';
+import 'package:untitled6/utils/app_router.dart';
 import 'package:untitled6/utils/material-theme/color_schemes.g.dart';
 import 'package:untitled6/utils/typography.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -20,24 +22,28 @@ class MyAPP extends StatelessWidget {
       builder: (_,box,__) {
         final isDark=Hive.box('Settings').get("isDark" , defaultValue: false);
         final String lang=Hive.box('Settings').get("lang" , defaultValue: "en");
-        return MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: Locale(lang),
-          title:
-          "app title",
-          theme: ThemeData(
-            colorScheme: lightColorScheme,
-            useMaterial3: true,
-            textTheme: textTheme,
-          ),
-          darkTheme: ThemeData(
-            colorScheme: darkColorScheme,
+        return Sizer(
+          builder: (context, orientation , deviceType) {
+            return MaterialApp.router(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale(lang),
+              title:
+              "app title",
+              theme: ThemeData(
+                colorScheme: lightColorScheme,
                 useMaterial3: true,
+                textTheme: textTheme,
+              ),
+              darkTheme: ThemeData(
+                colorScheme: darkColorScheme,
+                    useMaterial3: true,
 
-          ),
-          themeMode:isDark? ThemeMode.dark  : ThemeMode.light,
-          home: const HomePage(),
+              ),
+              themeMode:isDark? ThemeMode.dark  : ThemeMode.light,
+              routerConfig: router(),
+            );
+          }
         );
       }
     );

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../utils/constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,10 +16,12 @@ class HomePage extends StatelessWidget {
       appBar:AppBar(
         title:  Text(strings.appTitle , style:Theme.of(context).textTheme.titleMedium ,),
       ) ,
-      body:  Center(child: Container(
-          padding: const EdgeInsets.all(15),
-          color: Theme.of(context).colorScheme.error,
-          child:  Text(strings.appTitle)),),
+      body:  Center(child:FilledButton(
+        onPressed: (){
+          context.push(settingsPath);
+        },
+        child: const Text("Settings"),
+      )),
       drawer:Drawer (
         child: ListView(
           shrinkWrap: true,
@@ -26,8 +32,8 @@ class HomePage extends StatelessWidget {
                   valueListenable:Hive.box('Settings').listenable() ,
                   builder: (_,box,__) {
                   return Switch(
-                    value: box.get("isDark" , defaultValue: false),
-             onChanged:(v)=>Hive.box('Settings').put("isDark" , v) ,
+                    value: box.get(isDark , defaultValue: false),
+             onChanged:(v)=>Hive.box('Settings').put(isDark , v) ,
             );
                 }
               )
