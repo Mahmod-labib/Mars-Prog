@@ -37,7 +37,7 @@ class PhotosView extends StatelessWidget {
                     children: [
                       Text(photos[index].id.toString()),
                       Text(photos[index].earthDate.toString()),
-                      Text(photos[index].camera.toString()),
+                      Text(photos[index].camera.name),
                       CachedNetworkImage(
                         imageUrl: photos[index].imgSrc,
                         placeholder: (context, url) => const CircularProgressIndicator(),
