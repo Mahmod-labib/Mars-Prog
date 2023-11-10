@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sizer/sizer.dart';
 
+import '../../data-layer/repo/repo.dart';
 import '../../utils/constants.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,12 +16,18 @@ class HomePage extends StatelessWidget {
       appBar:AppBar(
         title:  Text(strings.appTitle , style:Theme.of(context).textTheme.titleMedium ,),
       ) ,
-      body:  Center(child:FilledButton(
+      body:
+      Center(child:FilledButton(
         onPressed: (){
           context.push(settingsPath);
         },
         child: const Text("Settings"),
       )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Repo().fetchLatestPhotos();
+          (context).go('/photoPath');
+        } ,child: const Icon(Icons.add),),
       drawer:Drawer (
         child: ListView(
           shrinkWrap: true,
