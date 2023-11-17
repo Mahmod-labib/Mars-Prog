@@ -21,12 +21,13 @@ class HomePage extends StatelessWidget {
         onPressed: (){
           context.push(settingsPath);
         },
-        child: const Text("Settings"),
+        child: const Text(settingsKey),
       )),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Repo().fetchLatestPhotos();
-          (context).go('/photoPath');
+         // Repo().fetchLatestPhotos();
+          Repo().fetchDatePhotos(DateTime(2022,10,10));
+
         } ,child: const Icon(Icons.add),),
       drawer:Drawer (
         child: ListView(
@@ -35,11 +36,11 @@ class HomePage extends StatelessWidget {
             ListTile(
               title:  Text(strings.theme),
               trailing: ValueListenableBuilder(
-                  valueListenable:Hive.box('Settings').listenable() ,
+                  valueListenable:Hive.box(settingsKey).listenable() ,
                   builder: (_,box,__) {
                   return Switch(
-                    value: box.get(isDark , defaultValue: false),
-             onChanged:(v)=>Hive.box('Settings').put(isDark , v) ,
+                    value: box.get(isDarkKey , defaultValue: false),
+             onChanged:(v)=>Hive.box(settingsKey).put(isDarkKey , v) ,
             );
                 }
               )
@@ -54,7 +55,8 @@ class HomePage extends StatelessWidget {
             ))
                 .toList(),
             onChanged: (v) {
-              Hive.box("Settings").put("lang", v!);
+              Hive.box(settingsKey).put(language, v!);
+
             },
           )),
 

@@ -47,4 +47,19 @@ class API{
       return [];
     }
       }
+  Future<List<dynamic>> fetchDatePhotos(String earthDate)async{
+    try{
+      final Response response= await _dio.request("/photos" ,
+          queryParameters:{'earth_date' :earthDate}  );
+      return response.data['photos'];
+    } catch(e){
+      if(e is DioException){
+        debugPrint(e.message);
+      }else{
+        debugPrint("Normal Error");
+      }
+      return [];
+    }
+  }
+
 }

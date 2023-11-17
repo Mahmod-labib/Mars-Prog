@@ -42,6 +42,8 @@ dependencies:
   dio: ^5.3.3
   dio_smart_retry: ^6.0.0
   cached_network_image:
+  equatable: ^2.0.5
+  internet_connection_checker: ^1.0.0+1
 
 
 
