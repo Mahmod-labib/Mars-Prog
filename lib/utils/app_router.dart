@@ -5,6 +5,7 @@ import 'package:untitled6/data-layer/repo/repo.dart';
 import 'package:untitled6/logic/mars/mars_cubit.dart';
 import 'package:untitled6/ui/screens/Photos_view.dart';
 import 'package:untitled6/ui/screens/home-page.dart';
+import 'package:untitled6/ui/screens/landing_pages.dart';
 import 'package:untitled6/ui/screens/settings.dart';
 import 'package:untitled6/utils/constants.dart';
 
@@ -16,7 +17,13 @@ final MarsCubit marsCubit=MarsCubit(repo:  Repo());
             path: intialRoute ,
             builder:(context , state)=>BlocProvider<MarsCubit >.value(
               value:marsCubit ,
-              child: const HomePage(),
+              child: const Landing(),
+            ) ),
+        GoRoute(
+            path: home ,
+            builder:(context , state)=>BlocProvider<MarsCubit >.value(
+              value:marsCubit ,
+              child:  HomePage(earthDate: state.extra as DateTime  ,),
             ) ),
         GoRoute(path: settingsPath ,
             builder:(context , state)=>BlocProvider<MarsCubit >.value(
