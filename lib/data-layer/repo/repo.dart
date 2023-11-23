@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled6/data-layer/api/api.dart';
 import 'package:untitled6/data-layer/db/db_functions.dart';
 import 'package:untitled6/data-layer/models/mars_photo.dart';
+import 'package:untitled6/data-layer/models/rover.dart';
 import 'package:untitled6/data-layer/repo/repo.dart';
+
+import '../../utils/constants.dart';
 
 class Repo{
 
@@ -40,5 +44,20 @@ class Repo{
 
 
   }
+  Future<bool>fetchCuriosityData()async{
+    try{
+      final data=await _api.fetchCuriosityData();
+      Rover rover=Rover.fromJson(data);
+      debugPrint(rover.maxDate.toString());
+      Hive.box<Rover>(roverDetailsKey).put(roverDetails, rover);
+      return true;
+    }catch(e){
 
-}
+      return false;
+    }
+    }
+
+
+  }
+
+

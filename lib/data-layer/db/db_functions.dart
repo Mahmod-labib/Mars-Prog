@@ -7,9 +7,9 @@ import '../models/mars_photo.dart';
 
 void savedPhotosList(List<MarsPhoto> photos){
   photos.map((photo){
-    final MarsPhoto localPhoto = Hive.box(marsPhotosKey).get(photo.id);
+    final MarsPhoto? localPhoto = Hive.box<MarsPhoto>(marsPhotosKey).get(photo.id);
     if(localPhoto != photo ){
-      Hive.box(marsPhotosKey).put(photo.id, photo);
+      Hive.box<MarsPhoto>(marsPhotosKey).put(photo.id, photo);
 
     }
 
