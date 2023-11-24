@@ -29,11 +29,11 @@ class Repo{
 
 
 
-  Future<List<MarsPhoto>>fetchDatePhotos(DateTime earthDate)async{
+  Future<List<MarsPhoto>>fetchDatePhotos(DateTime earthDate , {int? page})async{
     bool online = await InternetConnectionChecker().hasConnection;
     if(online == true) {
       final formattedDate=DateFormat("yyyy-MM-dd").format(earthDate);
-      final data=await _api.fetchDatePhotos(formattedDate);
+      final data=await _api.fetchDatePhotos(formattedDate , page: page );
       final photos=data.map((e) => MarsPhoto.fromJson(e)).toList();
       savedPhotosList(photos);
       return photos;

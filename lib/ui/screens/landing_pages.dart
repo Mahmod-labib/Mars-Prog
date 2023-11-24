@@ -5,6 +5,7 @@ import 'package:untitled6/ui/widgets/home_drawer.dart';
 import 'package:untitled6/utils/constants.dart';
 
 import '../../data-layer/models/rover.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Landing extends StatelessWidget {
@@ -12,14 +13,16 @@ class Landing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mars Photos"),
+        title:  Text(strings.appTitle),
       ),
-      drawer: const HomeDrawer(),
       body:  Column(
-        mainAxisAlignment:MainAxisAlignment.center ,
+        mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
         children: [
+          const SizedBox(width: double.infinity,),
           FilledButton(onPressed: (){
             context.push(home);
           },

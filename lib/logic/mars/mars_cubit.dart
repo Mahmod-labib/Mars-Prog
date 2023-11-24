@@ -1,5 +1,6 @@
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data-layer/models/mars_photo.dart';
@@ -18,17 +19,41 @@ class MarsCubit extends Cubit<MarsState> {
     await repo.fetchCuriosityData();
     emit(RoverDataLoaded());
   }
-   void fetchLatestPhotos()async{
+  /* void fetchLatestPhotos()async{
     emit(MarsPhotosLoading());
    final photoList=await repo.fetchLatestPhotos();
     emit(MarsPhotosLoaded(photos: photoList));
 
 
+   }*/
+
+  int pageCount =1;
+
+   final ScrollController scrollController =ScrollController();
+   void checkScrollPosition(DateTime earthDate){
+     if(
+     scrollController.offset>= scrollController.position.maxScrollExtent&&
+     !scrollController.position.outOfRange
+     ){
+       fetchMarsPhotos(earthDate , page: pageCount++);
+     }
    }
-  void fetchDatePhotos(DateTime earthDate)async{
+  var isPhotosLoaded=false;
+     List<MarsPhoto> photosList=[];
+     void resetHomePage() {
+       photosList=[];
+       isPhotosLoaded=true;
+     }
+
+
+  void fetchMarsPhotos(DateTime? earthDate , {int? page})async{
     emit(MarsPhotosLoading());
-    final photoList=await repo.fetchDatePhotos(earthDate);
-    emit(MarsPhotosLoaded(photos: photoList));
+    final lPhoto =earthDate !=null
+    ? await repo.fetchDatePhotos(earthDate , page:page ?? pageCount )
+    : await repo.fetchLatestPhotos();
+    photosList.addAll(lPhoto);
+    isPhotosLoaded=true;
+    emit(MarsPhotosLoaded());
 
 
   }

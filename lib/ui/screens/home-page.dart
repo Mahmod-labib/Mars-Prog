@@ -2,9 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:untitled6/data-layer/models/mars_photo.dart';
 import 'package:untitled6/logic/mars/mars_cubit.dart';
 import 'package:untitled6/ui/widgets/mars_photo_card.dart';
+
+import '../widgets/home_drawer.dart';
 
 
 bool dataReady = false;
@@ -15,24 +18,31 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key,required this.earthDate});
 @override
   Widget build(BuildContext context) {
+    final MarsCubit cubit = context.read<MarsCubit>();
+    cubit.resetHomePage();
     final strings = AppLocalizations.of(context)!;
+    cubit.fetchMarsPhotos(earthDate);
+    cubit.scrollController.addListener(()=>cubit.checkScrollPosition(earthDate!));
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          strings.appTitle,
+          earthDate==null? "LatestPhotos" :DateFormat.yMMMd().format(earthDate!),
           style: Theme
               .of(context)
               .textTheme
-              .titleMedium,
+              .titleSmall,
         ),
       ),
+      drawer: const HomeDrawer(),
+
       body:  BlocBuilder<MarsCubit, MarsState>(
         builder: (context, state) {
-          return ConditionalBuilder(condition: state is MarsPhotosLoaded,
+          return ConditionalBuilder(condition: cubit.isPhotosLoaded,
               builder: (context)=> ListView.builder(
-                          itemCount: (state as MarsPhotosLoaded).photos.length,
-                          itemBuilder: (_, i)=> MarsPhotoCard(marsPhoto: (state).photos[i]),
+                          controller:cubit.scrollController ,
+                          itemCount: cubit.photosList.length,
+                          itemBuilder: (_, i)=> MarsPhotoCard(marsPhoto: cubit.photosList[i]),
                         ),
     fallback: (context)=>const Center(child: CircularProgressIndicator()));
                       },
