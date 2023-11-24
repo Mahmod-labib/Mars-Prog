@@ -20,7 +20,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final MarsCubit cubit = context.read<MarsCubit>();
     cubit.resetHomePage();
-    final strings = AppLocalizations.of(context)!;
     cubit.fetchMarsPhotos(earthDate);
     cubit.scrollController.addListener(()=>cubit.checkScrollPosition(earthDate!));
 

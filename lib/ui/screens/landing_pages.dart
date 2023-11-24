@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
-import 'package:untitled6/ui/widgets/home_drawer.dart';
 import 'package:untitled6/utils/constants.dart';
 
 import '../../data-layer/models/rover.dart';
@@ -14,7 +13,8 @@ class Landing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = AppLocalizations.of(context)!;
-
+    final Rover rover=Hive.box<Rover>(roverDetailsKey)
+        .get(roverDetails)!;
     return Scaffold(
       appBar: AppBar(
         title:  Text(strings.appTitle),
@@ -33,14 +33,11 @@ class Landing extends StatelessWidget {
           FilledButton(onPressed:  () async {
     DateTime? date = await showDatePicker(
     context: context,
-    initialDate: Hive.box<Rover>(roverDetailsKey)
-        .get(roverDetails)!
-        .maxDate,
-    firstDate: Hive.box<Rover>(roverDetailsKey)
-        .get(roverDetails)!
+    initialDate:
+       rover .maxDate,
+    firstDate: rover
         .landingDate,
-    lastDate: Hive.box<Rover>(roverDetailsKey)
-        .get(roverDetails)!
+    lastDate: rover
         .maxDate).then((date) {
           if(date != null){
             context.push(home);
