@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../data-layer/db/init_db.dart';
 import '../../utils/constants.dart';
 
 
@@ -14,7 +15,6 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings =AppLocalizations.of(context)!;
-    final settingsBox=Hive.box(settingsKey);
     return Drawer (
         child: ListView(
             shrinkWrap: true,

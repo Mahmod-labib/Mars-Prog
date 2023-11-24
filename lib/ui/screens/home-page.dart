@@ -13,7 +13,7 @@ List<MarsPhoto> marsPhotos = [];
 class HomePage extends StatelessWidget {
   final DateTime? earthDate;
   const HomePage({super.key,required this.earthDate});
-
+@override
   Widget build(BuildContext context) {
     final strings = AppLocalizations.of(context)!;
 
@@ -38,8 +38,9 @@ class HomePage extends StatelessWidget {
                       },
                     ),
 
-      },
-      ));
+    );
+    }
+
 
   }
-}
+
