@@ -19,6 +19,6 @@ void savedPhotosList(List<MarsPhoto> photos){
 }
 List <MarsPhoto> fetchDatePhotosFromDB (DateTime date){
   return  Hive.box<MarsPhoto>(marsPhotosKey).values
-      .where((photo) => photo.earthDate != date )
+      .where((MarsPhoto  photo) => photo.earthDate != date )
       .toList();
 }

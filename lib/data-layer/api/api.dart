@@ -42,7 +42,7 @@ class API{
       if(e is DioException){
         debugPrint(e.message);
       }else{
-        debugPrint("Normal Error");
+        debugPrint("Normal Error : $e");
       }
       return [];
     }
@@ -51,15 +51,15 @@ class API{
     try{
       final Response response= await _dio.request("/photos" ,
           queryParameters:{
-        'earth_date' :earthDate,
-         'page' :page,
+        "earth_date" :earthDate,
+         "page" :page,
       }  );
       return response.data['photos'];
     } catch(e){
       if(e is DioException){
         debugPrint(e.message);
       }else{
-        debugPrint("Normal Error");
+        debugPrint("Normal Error : $e");
       }
       return [];
     }

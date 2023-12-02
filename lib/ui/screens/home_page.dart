@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled6/data-layer/models/mars_photo.dart';
 import 'package:untitled6/logic/mars/mars_cubit.dart';
@@ -22,7 +21,6 @@ class HomePage extends StatelessWidget {
     cubit.resetHomePage();
     cubit.fetchMarsPhotos(earthDate);
     cubit.scrollController.addListener(()=>cubit.checkScrollPosition(earthDate!));
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -37,7 +35,8 @@ class HomePage extends StatelessWidget {
 
       body:  BlocBuilder<MarsCubit, MarsState>(
         builder: (context, state) {
-          return ConditionalBuilder(condition: cubit.isPhotosLoaded,
+          return ConditionalBuilder(
+              condition: cubit.isPhotosLoaded,
               builder: (context)=> ListView.builder(
                           controller:cubit.scrollController ,
                           itemCount: cubit.photosList.length,

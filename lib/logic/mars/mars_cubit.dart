@@ -1,5 +1,4 @@
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,22 +26,21 @@ class MarsCubit extends Cubit<MarsState> {
 
    }*/
 
-  int pageCount =1;
+  int pageCount =0;
 
    final ScrollController scrollController =ScrollController();
-   void checkScrollPosition(DateTime earthDate){
-     if(
-     scrollController.offset>= scrollController.position.maxScrollExtent&&
-     !scrollController.position.outOfRange
-     ){
-       fetchMarsPhotos(earthDate , page: pageCount++);
-     }
-   }
-  var isPhotosLoaded=false;
+  void checkScrollPosition(DateTime earthDate){
+    if(scrollController.offset >=
+        scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange){
+      fetchMarsPhotos(earthDate,page: pageCount++);
+    }
+  }
+  bool isPhotosLoaded=true;
      List<MarsPhoto> photosList=[];
      void resetHomePage() {
        photosList=[];
-       isPhotosLoaded=true;
+       isPhotosLoaded=false;
      }
 
 

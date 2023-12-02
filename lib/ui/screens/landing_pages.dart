@@ -6,16 +6,17 @@ import 'package:untitled6/utils/constants.dart';
 import '../../data-layer/models/rover.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
+final Rover rover= Hive.box<Rover>(roverDetailsKey)
+    .get(roverDetails)!;
 class Landing extends StatelessWidget {
   const Landing({super.key});
 
   @override
   Widget build(BuildContext context) {
     final strings = AppLocalizations.of(context)!;
-    final Rover rover=Hive.box<Rover>(roverDetailsKey)
-        .get(roverDetails)!;
+
     return Scaffold(
+
       appBar: AppBar(
         title:  Text(strings.appTitle),
       ),
@@ -40,7 +41,7 @@ class Landing extends StatelessWidget {
     lastDate: rover
         .maxDate).then((date) {
           if(date != null){
-            context.push(home);
+            context.push(home );
           }
     });
 

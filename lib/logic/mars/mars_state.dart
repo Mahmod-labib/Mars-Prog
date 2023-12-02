@@ -1,5 +1,5 @@
 part of 'mars_cubit.dart';
-
+@immutable
 abstract class MarsState {}
 
 class MarsInitial extends MarsState {}

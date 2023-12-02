@@ -6,7 +6,6 @@ import 'package:untitled6/data-layer/api/api.dart';
 import 'package:untitled6/data-layer/db/db_functions.dart';
 import 'package:untitled6/data-layer/models/mars_photo.dart';
 import 'package:untitled6/data-layer/models/rover.dart';
-import 'package:untitled6/data-layer/repo/repo.dart';
 
 import '../../utils/constants.dart';
 
