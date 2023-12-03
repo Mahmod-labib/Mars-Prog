@@ -23,8 +23,8 @@ final MarsCubit marsCubit=MarsCubit(repo:  Repo());
             path: home ,
             builder:(context , state)=>BlocProvider<MarsCubit >.value(
               value:marsCubit ,
-              child:  HomePage(earthDate: state.extra as DateTime?  ,),
-            ) ),
+              child:  HomePage(earthDate: state.extra as DateTime?,),
+            ), ),
         GoRoute(path: settingsPath ,
             builder:(context , state)=>BlocProvider<MarsCubit >.value(
               value:marsCubit ,

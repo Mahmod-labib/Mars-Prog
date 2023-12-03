@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
@@ -29,29 +28,21 @@ class Repo{
 
 
   Future<List<MarsPhoto>>fetchDatePhotos(DateTime earthDate , {int? page})async{
-    bool online = await InternetConnectionChecker().hasConnection;
-    if(online == true) {
+
       final formattedDate=DateFormat("yyyy-MM-dd").format(earthDate);
       final data=await _api.fetchDatePhotos(formattedDate , page: page );
       final photos=data.map((e) => MarsPhoto.fromJson(e)).toList();
       savedPhotosList(photos);
       return photos;
 
-    } else {
-        return fetchDatePhotosFromDB(earthDate);
-    }
-
-
   }
   Future<bool>fetchCuriosityData()async{
     try{
       final data=await _api.fetchCuriosityData();
       Rover rover=Rover.fromJson(data);
-      debugPrint(rover.maxDate.toString());
       Hive.box<Rover>(roverDetailsKey).put(roverDetails, rover);
       return true;
     }catch(e){
-
       return false;
     }
     }

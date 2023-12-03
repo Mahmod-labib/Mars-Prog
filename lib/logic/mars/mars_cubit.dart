@@ -26,7 +26,7 @@ class MarsCubit extends Cubit<MarsState> {
 
    }*/
 
-  int pageCount =0;
+  int pageCount =1;
 
    final ScrollController scrollController =ScrollController();
   void checkScrollPosition(DateTime earthDate){
@@ -36,7 +36,7 @@ class MarsCubit extends Cubit<MarsState> {
       fetchMarsPhotos(earthDate,page: pageCount++);
     }
   }
-  bool isPhotosLoaded=true;
+  bool isPhotosLoaded=false;
      List<MarsPhoto> photosList=[];
      void resetHomePage() {
        photosList=[];
@@ -49,8 +49,8 @@ class MarsCubit extends Cubit<MarsState> {
     final lPhoto =earthDate !=null
     ? await repo.fetchDatePhotos(earthDate , page:page ?? pageCount )
     : await repo.fetchLatestPhotos();
-    photosList.addAll(lPhoto);
     isPhotosLoaded=true;
+    photosList.addAll(lPhoto);
     emit(MarsPhotosLoaded());
 
 

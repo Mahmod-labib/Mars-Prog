@@ -21,7 +21,7 @@ class MarsPhoto extends Equatable {
   @JsonKey(name: "earth_date", fromJson: _dateFromString)
   final DateTime earthDate;
 
-  MarsPhoto({
+  const MarsPhoto({
     required this.id,
     required this.sol,
     required this.camera,

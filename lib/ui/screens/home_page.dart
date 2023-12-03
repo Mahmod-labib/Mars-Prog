@@ -31,7 +31,6 @@ class HomePage extends StatelessWidget {
               .titleSmall,
         ),
       ),
-      drawer: const HomeDrawer(),
 
       body:  BlocBuilder<MarsCubit, MarsState>(
         builder: (context, state) {
@@ -40,9 +39,10 @@ class HomePage extends StatelessWidget {
               builder: (context)=> ListView.builder(
                           controller:cubit.scrollController ,
                           itemCount: cubit.photosList.length,
-                          itemBuilder: (_, i)=> MarsPhotoCard(marsPhoto: cubit.photosList[i]),
+                          itemBuilder: (_, i)=> MarsPhotoCard(
+                              marsPhoto: cubit.photosList[i]),
                         ),
-    fallback: (context)=>const Center(child: CircularProgressIndicator()));
+    fallback: (_)=>const Center(child: CircularProgressIndicator()));
                       },
                     ),
 
